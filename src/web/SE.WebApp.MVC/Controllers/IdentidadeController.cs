@@ -11,7 +11,7 @@ using SE.WebApp.MVC.Services;
 
 namespace SE.WebApp.MVC.Controllers
 {
-    public class IdentidadeController : Controller
+    public class IdentidadeController : MainController
     {
         private readonly IAutenticacaoService _autenticacaoService;
 
@@ -33,13 +33,10 @@ namespace SE.WebApp.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(usuarioRegistro);
 
-            //API Registro
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
 
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioRegistro);
 
-            //if (false) return View(usuarioRegistro);
-
-            // Realizar registro na app
             await RealizarLogin(resposta);
 
             return RedirectToAction("Index", "Home");
@@ -58,12 +55,10 @@ namespace SE.WebApp.MVC.Controllers
         {
             if (!ModelState.IsValid) return View(usuarioLogin);
 
-            // API Login
             var resposta = await _autenticacaoService.Login(usuarioLogin);
 
-            // if (false) return View(usuarioLogin);
+            if (ResponsePossuiErros(resposta.ResponseResult)) return View(usuarioLogin);
 
-            // Realizar login na app
             await RealizarLogin(resposta);
 
             return RedirectToAction("Index", "Home");
@@ -73,6 +68,7 @@ namespace SE.WebApp.MVC.Controllers
         [Route("sair")]
         public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
 
