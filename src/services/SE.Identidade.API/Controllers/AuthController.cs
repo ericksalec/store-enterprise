@@ -60,6 +60,8 @@ namespace SE.Identidade.API.Controllers
         [HttpPost("autenticar")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
         {
+            //return new StatusCodeResult(401);
+
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var result = await _signManager.PasswordSignInAsync(usuarioLogin.Email, usuarioLogin.Senha, false, true);

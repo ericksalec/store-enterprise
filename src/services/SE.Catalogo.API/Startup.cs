@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SE.Catalogo.API.Data;
+using SE.Catalogo.API.Data.Repository;
+using SE.Catalogo.API.Models;
 
 namespace SE.Catalogo.API
 {
@@ -22,13 +26,17 @@ namespace SE.Catalogo.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CatalogoContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllers();
+
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<CatalogoContext>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

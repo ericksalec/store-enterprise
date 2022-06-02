@@ -8,9 +8,20 @@ namespace SE.WebApp.MVC
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment hostEnvironment)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(hostEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
+                .AddEnvironmentVariables();
+
+            if (hostEnvironment.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -18,7 +29,7 @@ namespace SE.WebApp.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentityConfiguration();
-            services.AddMvcConfiguration();
+            services.AddMvcConfiguration(Configuration);
             services.RegisterServices();
         }
 
