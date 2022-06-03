@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SE.Catalogo.API.Data;
+using SE.WebAPI.Core.Identidade;
 
 namespace SE.Catalogo.API.Configuration
 {
@@ -40,6 +41,8 @@ namespace SE.Catalogo.API.Configuration
             app.UseRouting();
 
             app.UseCors("Total");
+
+            app.UseAuthConfiguration();
 
             app.UseEndpoints(endpoints =>
             {
