@@ -1,11 +1,11 @@
 ﻿using System;
 using SE.Core.DomainObjects;
 
-namespace SE.Cliente.API.Configuration
+namespace SE.Clientes.API.Models
 {
     public class Endereco : Entity
     {
-        public string Longradouro { get; private set; }
+        public string Logradouro { get; private set; }
         public string Numero { get; private set; }
         public string Complemento { get; private set; }
         public string Bairro { get; private set; }
@@ -17,9 +17,9 @@ namespace SE.Cliente.API.Configuration
         // EF Relation
         public Cliente Cliente { get; protected set; }
 
-        public Endereco(string longradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado)
+        public Endereco(string logradouro, string numero, string complemento, string bairro, string cep, string cidade, string estado)
         {
-            Longradouro = longradouro;
+            Logradouro = logradouro;
             Numero = numero;
             Complemento = complemento;
             Bairro = bairro;

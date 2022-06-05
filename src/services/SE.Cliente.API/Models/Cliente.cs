@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
+using SE.Clientes.API.Models;
 using SE.Core.DomainObjects;
 
-namespace SE.Cliente.API.Configuration
+namespace SE.Clientes.API.Models
 {
     public class Cliente : Entity, IAggregateRoot
     {

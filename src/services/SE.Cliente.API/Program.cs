@@ -6,8 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SE.Clientes.API;
 
-namespace SE.Cliente.API
+namespace SE.Clientes.API
 {
     public class Program
     {

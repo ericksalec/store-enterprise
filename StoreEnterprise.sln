@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Carrinho.API", "src\serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Catalogo.API", "src\services\SE.Catalogo.API\SE.Catalogo.API.csproj", "{BB15054D-90DF-4BA9-9F29-A85DFA2AB494}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Cliente.API", "src\services\SE.Cliente.API\SE.Cliente.API.csproj", "{A1B3E10A-1B45-454B-9542-F062177C0A1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Clientes.API", "src\services\SE.Cliente.API\SE.Clientes.API.csproj", "{A1B3E10A-1B45-454B-9542-F062177C0A1D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Identidade.API", "src\services\SE.Identidade.API\SE.Identidade.API.csproj", "{DDCDBEED-6BC1-40E8-AABE-84D09E820879}"
 EndProject
