@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
+using Polly.Retry;
 using SE.WebApp.MVC.Extensions;
 using SE.WebApp.MVC.Services;
 using SE.WebApp.MVC.Services.Handlers;
@@ -18,7 +20,32 @@ namespace SE.WebApp.MVC.Configuration
 
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
 
-            var retryWaitPolicy = HttpPolicyExtensions
+            services.AddHttpClient<ICatalogoService, CatalogoService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                //.AddTransientHttpErrorPolicy(
+                //    p => p.WaitAndRetryAsync(3, _=> TimeSpan.FromMilliseconds(600)));
+                .AddPolicyHandler(PollyExtensions.EsperarTentar());
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUser, AspNetUser>();
+
+            #region Refit
+            // Consumindo API com Refit
+            //services.AddHttpClient("Refit", options =>
+            //    {
+            //        options.BaseAddress = new Uri(configuration.GetSection("CatalogoUrl").Value);
+            //    })
+            //    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+            //    .AddTypedClient(Refit.RestService.For<ICatalogoServiceRefit>);
+            #endregion
+        }
+    }
+
+    public class PollyExtensions
+    {
+        public static AsyncRetryPolicy<HttpResponseMessage> EsperarTentar()
+        {
+            var retry = HttpPolicyExtensions
                 .HandleTransientHttpError()
                 .WaitAndRetryAsync(new[]
                 {
@@ -31,23 +58,7 @@ namespace SE.WebApp.MVC.Configuration
                     Console.WriteLine($"Tentando pela {retryCount} vez!");
                     Console.ForegroundColor = ConsoleColor.White;
                 });
-
-            services.AddHttpClient<ICatalogoService, CatalogoService>()
-                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-                //.AddTransientHttpErrorPolicy(
-                //    p => p.WaitAndRetryAsync(3, _=> TimeSpan.FromMilliseconds(600)));
-                .AddPolicyHandler(retryWaitPolicy);
-
-            // Consumindo API com Refit
-            //services.AddHttpClient("Refit", options =>
-            //    {
-            //        options.BaseAddress = new Uri(configuration.GetSection("CatalogoUrl").Value);
-            //    })
-            //    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-            //    .AddTypedClient(Refit.RestService.For<ICatalogoServiceRefit>);
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUser, AspNetUser>();
+            return retry;
         }
     }
 }
