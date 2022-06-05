@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Polly;
+using Polly.Extensions.Http;
 using SE.WebApp.MVC.Extensions;
 using SE.WebApp.MVC.Services;
 using SE.WebApp.MVC.Services.Handlers;
@@ -16,15 +18,33 @@ namespace SE.WebApp.MVC.Configuration
 
             services.AddHttpClient<IAutenticacaoService, AutenticacaoService>();
 
-            //services.AddHttpClient<ICatalogoService, CatalogoService>()
-            //    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>();
-
-            services.AddHttpClient("Refit", options =>
+            var retryWaitPolicy = HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .WaitAndRetryAsync(new[]
                 {
-                    options.BaseAddress = new Uri(configuration.GetSection("CatalogoUrl").Value);
-                })
+                    TimeSpan.FromSeconds(1),
+                    TimeSpan.FromSeconds(2),
+                    TimeSpan.FromSeconds(10),
+                }, (outcome, timespan, retryCount, context) =>
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"Tentando pela {retryCount} vez!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                });
+
+            services.AddHttpClient<ICatalogoService, CatalogoService>()
                 .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
-                .AddTypedClient(Refit.RestService.For<ICatalogoServiceRefit>);
+                //.AddTransientHttpErrorPolicy(
+                //    p => p.WaitAndRetryAsync(3, _=> TimeSpan.FromMilliseconds(600)));
+                .AddPolicyHandler(retryWaitPolicy);
+
+            // Consumindo API com Refit
+            //services.AddHttpClient("Refit", options =>
+            //    {
+            //        options.BaseAddress = new Uri(configuration.GetSection("CatalogoUrl").Value);
+            //    })
+            //    .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+            //    .AddTypedClient(Refit.RestService.For<ICatalogoServiceRefit>);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
