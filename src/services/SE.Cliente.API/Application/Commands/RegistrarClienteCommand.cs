@@ -6,7 +6,7 @@ namespace SE.Clientes.API.Application.Commands
     public class RegistrarClienteCommand : Command
     {
         public Guid Id { get; private set; }
-        public string Name { get; private set; }
+        public string Nome { get; private set; }
         public string Email { get; private set; }
         public string Cpf { get; private set; }
 
@@ -14,7 +14,7 @@ namespace SE.Clientes.API.Application.Commands
         {
             AggregateId = id;
             Id = id;
-            Name = name;
+            Nome = name;
             Email = email;
             Cpf = cpf;
         }
