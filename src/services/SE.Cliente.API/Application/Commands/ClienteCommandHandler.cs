@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using MediatR;
+using SE.Clientes.API.Application.Events;
 using SE.Clientes.API.Models;
 using SE.Core.Messages;
 
@@ -35,6 +36,9 @@ namespace SE.Clientes.API.Application.Commands
 
             // persistir no banco
             _clienteRepository.Adicionar(cliente);
+
+            // lancar um evento cliente ok!
+            cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
 
             return await PesistirDados(_clienteRepository.UnitOfWork);
         }
