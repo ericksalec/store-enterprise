@@ -22,8 +22,6 @@ namespace SE.Clientes.API.Configuration
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ClientesContext>();
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
     }
 

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SE.WebAPI.Core.Identidade;
 using SE.Clientes.API.Configuration;
+using SE.Core.Mediator;
 
 
 namespace SE.Clientes.API
@@ -41,7 +42,6 @@ namespace SE.Clientes.API
             services.AddMediatR(typeof(Startup));
 
             services.RegisterServices();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

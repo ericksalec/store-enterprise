@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore.Internal;
 
-namespace SE.Identidade.API.Controllers
+namespace SE.WebAPI.Core.Controllers
 {
     [ApiController]
     public abstract class MainController : Controller

@@ -40,7 +40,7 @@ namespace SE.Clientes.API.Application.Commands
             // lancar um evento cliente ok!
             cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
 
-            return await PesistirDados(_clienteRepository.UnitOfWork);
+            return await PersistirDados(_clienteRepository.UnitOfWork);
         }
     }
 }

@@ -21,12 +21,11 @@
 
   <ItemGroup>
     <Folder Include="Application\Queries\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\building blocks\SE.Core\SE.Core.csproj" />
-    <ProjectReference Include="..\SE.Catalogo.API\SE.Catalogo.API.csproj" />
+    <ProjectReference Include="..\..\building blocks\SE.WebAPI.Core\SE.WebAPI.Core.csproj" />
   </ItemGroup>
 
 

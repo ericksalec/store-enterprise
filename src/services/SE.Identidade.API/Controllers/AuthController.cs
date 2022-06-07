@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SE.Identidade.API.Extensions;
+using SE.WebAPI.Core.Controllers;
 using SE.WebAPI.Core.Identidade;
 
 namespace SE.Identidade.API.Controllers
