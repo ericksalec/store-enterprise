@@ -30,7 +30,7 @@ namespace SE.Clientes.API.Application.Commands
 
             if (clienteExistente != null) 
             {
-                AdicionarErro("este CPF já está em uso.");
+                AdicionarErro("Este CPF já está em uso.");
                 return ValidationResult;
             }
 

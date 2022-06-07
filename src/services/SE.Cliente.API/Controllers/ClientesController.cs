@@ -9,7 +9,7 @@ namespace SE.Clientes.API.Controllers
 {
     public class ClientesController : MainController
     {
-        private readonly  IMediatorHandler _mediatorHandler;
+        private readonly IMediatorHandler _mediatorHandler;
 
         public ClientesController(IMediatorHandler mediatorHandler)
         {
@@ -20,7 +20,7 @@ namespace SE.Clientes.API.Controllers
         public async Task<IActionResult> Index()
         {
             var resultado = await _mediatorHandler.EnviarComando(
-                new RegistrarClienteCommand(Guid.NewGuid(), "Erick", "erick@gg.com", "53185464044"));
+                new RegistrarClienteCommand(Guid.NewGuid(), "Teste", "teste@email.com", "30314299076"));
 
             return CustomResponse(resultado);
         }

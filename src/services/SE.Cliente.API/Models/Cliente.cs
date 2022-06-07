@@ -15,7 +15,7 @@ namespace SE.Clientes.API.Models
         // EF Relation
         public Cliente() { }
 
-        public Cliente(Guid id, string nome, string cpf, string email)
+        public Cliente(Guid id, string nome, string email, string cpf)
         {
             Id = id;
             Nome = nome;
