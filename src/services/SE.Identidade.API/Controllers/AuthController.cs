@@ -7,11 +7,13 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using EasyNetQ;
 using SE.Identidade.API.Models;
 using static SE.Identidade.API.Models.UserViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SE.Core.Messages.Integration;
 using SE.Identidade.API.Extensions;
 using SE.WebAPI.Core.Controllers;
 using SE.WebAPI.Core.Identidade;
@@ -23,7 +25,9 @@ namespace SE.Identidade.API.Controllers
     {
         private readonly SignInManager<IdentityUser> _signManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly AppSettings _appSettings;  
+        private readonly AppSettings _appSettings;
+
+        private IBus _bus;
 
         public AuthController(SignInManager<IdentityUser> singnManeger, 
                               UserManager<IdentityUser> userManager,
@@ -48,7 +52,13 @@ namespace SE.Identidade.API.Controllers
 
             var result = await _userManager.CreateAsync(user, usuarioResgistro.Senha);
 
-            if (result.Succeeded) CustomResponse(await GerarJwt(usuarioResgistro.Email));
+            if (result.Succeeded)
+            {
+                // => lancar evento de integracao
+                var sucesso = await RegistrarCliente(usuarioResgistro);
+
+                CustomResponse(await GerarJwt(usuarioResgistro.Email));
+            }
 
             foreach (var error in result.Errors)
             {
@@ -56,7 +66,20 @@ namespace SE.Identidade.API.Controllers
             }
 
             return CustomResponse(result);
+        }
 
+        private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistro usuarioRegistro)
+        {
+            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+            
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
+                Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
+
+            _bus = RabbitHutch.CreateBus("host=localhost:5672");
+
+           var sucesso = await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+
+           return sucesso;
         }
 
         [HttpPost("autenticar")]

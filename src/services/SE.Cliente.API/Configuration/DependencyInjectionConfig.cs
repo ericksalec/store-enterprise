@@ -7,6 +7,7 @@ using SE.Clientes.API.Application.Events;
 using SE.Clientes.API.Data;
 using SE.Clientes.API.Data.Repository;
 using SE.Clientes.API.Models;
+using SE.Clientes.API.Services;
 using SE.Core.Mediator;
 
 namespace SE.Clientes.API.Configuration
@@ -22,6 +23,9 @@ namespace SE.Clientes.API.Configuration
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ClientesContext>();
+
+            // HostedService => Singleton
+            services.AddHostedService<RegistroClienteIntegrationHandler>();
         }
     }
 
