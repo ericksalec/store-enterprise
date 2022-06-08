@@ -24,8 +24,6 @@ namespace SE.Clientes.API.Configuration
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ClientesContext>();
 
-            // HostedService => Singleton
-            services.AddHostedService<RegistroClienteIntegrationHandler>();
         }
     }
 

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SE.Core.Messages.Integration;
 using SE.Identidade.API.Extensions;
+using SE.MessageBus;
 using SE.WebAPI.Core.Controllers;
 using SE.WebAPI.Core.Identidade;
 
@@ -27,15 +28,17 @@ namespace SE.Identidade.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
 
-        private IBus _bus;
+        private readonly IMessageBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> singnManeger, 
+        public AuthController(SignInManager<IdentityUser> singnManeger,
                               UserManager<IdentityUser> userManager,
-                              IOptions<AppSettings> appSettings)
+                              IOptions<AppSettings> appSettings,
+                              IMessageBus bus)
         {
             _signManager = singnManeger;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("nova-conta")]
@@ -44,9 +47,10 @@ namespace SE.Identidade.API.Controllers
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            var user = new IdentityUser {
+            var user = new IdentityUser
+            {
                 UserName = usuarioResgistro.Email,
-                Email = usuarioResgistro.Email, 
+                Email = usuarioResgistro.Email,
                 EmailConfirmed = true
             };
 
@@ -55,7 +59,13 @@ namespace SE.Identidade.API.Controllers
             if (result.Succeeded)
             {
                 // => lancar evento de integracao
-                var sucesso = await RegistrarCliente(usuarioResgistro);
+                var clienteResult = await RegistrarCliente(usuarioResgistro);
+
+                if (!clienteResult.ValidationResult.IsValid)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(clienteResult.ValidationResult);
+                }
 
                 CustomResponse(await GerarJwt(usuarioResgistro.Email));
             }
@@ -68,19 +78,6 @@ namespace SE.Identidade.API.Controllers
             return CustomResponse(result);
         }
 
-        private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistro usuarioRegistro)
-        {
-            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
-            
-            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
-                Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
-
-            _bus = RabbitHutch.CreateBus("host=localhost:5672");
-
-           var sucesso = await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
-
-           return sucesso;
-        }
 
         [HttpPost("autenticar")]
         public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
@@ -105,7 +102,7 @@ namespace SE.Identidade.API.Controllers
         private async Task<UsuarioRespostaLogin> GerarJwt(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            var claims = await  _userManager.GetClaimsAsync(user);
+            var claims = await _userManager.GetClaimsAsync(user);
 
             var identityClaims = await ObterClaimsUsuario(claims, user);
             var encodedToken = CodificarToken(identityClaims);
@@ -171,6 +168,25 @@ namespace SE.Identidade.API.Controllers
         private static long ToUnixEpochDate(DateTime date)
             => (long)Math.Round((date.ToUniversalTime() - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero))
                 .TotalSeconds);
+
+
+        private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistro usuarioRegistro)
+        {
+            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(
+                Guid.Parse(usuario.Id), usuarioRegistro.Nome, usuarioRegistro.Email, usuarioRegistro.Cpf);
+
+            try
+            {
+                return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+            }
+            catch 
+            {
+                await _userManager.DeleteAsync(usuario);
+                throw;
+            }
+        }
 
     }
 }
