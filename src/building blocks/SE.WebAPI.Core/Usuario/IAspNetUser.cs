@@ -8,7 +8,7 @@ namespace SE.WebAPI.Core.Usuario
     public interface IAspNetUser
     {
         string Name { get; }
-        Guid ObterUserID();
+        Guid ObterUserId();
         string ObterUserEmail();
         string ObterUserToken();
         bool EstaAutenticado();

@@ -16,7 +16,7 @@ namespace SE.WebAPI.Core.Usuario
         }
 
         public string Name => _accessor.HttpContext.User.Identity.Name;
-        public Guid ObterUserID()
+        public Guid ObterUserId()
         {
             return EstaAutenticado() ? Guid.Parse(_accessor.HttpContext.User.GetUserId()) : Guid.Empty;
         }
