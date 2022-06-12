@@ -41,12 +41,12 @@ namespace SE.Carrinho.API.Model
 
         internal bool EhValido()
         {
-            return new ItemPeididoValidation().Validate(this).IsValid;
+            return new ItemCarrinhoValidation().Validate(this).IsValid;
         }
 
-        public class ItemPeididoValidation : AbstractValidator<CarrinhoItem>
+        public class ItemCarrinhoValidation : AbstractValidator<CarrinhoItem>
         {
-            public ItemPeididoValidation()
+            public ItemCarrinhoValidation()
             {
                 RuleFor(c => c.ProdutoId)
                     .NotEqual(Guid.Empty)
