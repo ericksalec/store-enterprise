@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Retry;
+using SE.WebAPI.Core.Usuario;
 using SE.WebApp.MVC.Extensions;
 using SE.WebApp.MVC.Services;
 using SE.WebApp.MVC.Services.Handlers;
@@ -33,7 +34,7 @@ namespace SE.WebApp.MVC.Configuration
 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUser, AspNetUser>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
 
             #region Refit
             // Consumindo API com Refit
