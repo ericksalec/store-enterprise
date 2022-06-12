@@ -34,6 +34,10 @@ namespace SE.Carrinho.API.Model
         {
             Quantidade += unidades;
         }
+        public void AtualizarUnidades(int unidades)
+        {
+            Quantidade = unidades;
+        }
 
         internal bool EhValido()
         {
@@ -65,7 +69,6 @@ namespace SE.Carrinho.API.Model
                     .WithMessage(item => $"O valor do {item.Nome} precisa ser maior que 0");
             }
         }
-
 
     }
 

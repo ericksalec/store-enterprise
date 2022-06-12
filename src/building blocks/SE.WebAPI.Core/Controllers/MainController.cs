@@ -29,7 +29,7 @@ namespace SE.WebAPI.Core.Controllers
             var erros = modelState.Values.SelectMany(e => e.Errors);
             foreach (var erro in erros)
             {
-                AdicinonarErroProcessamento(erro.ErrorMessage);
+                AdicionarErroProcessamento(erro.ErrorMessage);
             }
 
             return CustomResponse();
@@ -39,13 +39,13 @@ namespace SE.WebAPI.Core.Controllers
         {
             foreach (var erro in validationResult.Errors)
             {
-                AdicinonarErroProcessamento(erro.ErrorMessage);
+                AdicionarErroProcessamento(erro.ErrorMessage);
             }
 
             return CustomResponse();
         }
 
-        protected void AdicinonarErroProcessamento(string erro)
+        protected void AdicionarErroProcessamento(string erro)
         {
             Erros.Add(erro);
         }

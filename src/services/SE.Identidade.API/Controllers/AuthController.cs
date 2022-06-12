@@ -72,7 +72,7 @@ namespace SE.Identidade.API.Controllers
 
             foreach (var error in result.Errors)
             {
-                AdicinonarErroProcessamento(error.Description);
+                AdicionarErroProcessamento(error.Description);
             }
 
             return CustomResponse(result);
@@ -91,11 +91,11 @@ namespace SE.Identidade.API.Controllers
 
             if (result.IsLockedOut)
             {
-                AdicinonarErroProcessamento("Usuário temporariamente bloqueado por tentativas enválidas");
+                AdicionarErroProcessamento("Usuário temporariamente bloqueado por tentativas enválidas");
                 return CustomResponse();
             }
 
-            AdicinonarErroProcessamento("Usuário ou Senha incorretos");
+            AdicionarErroProcessamento("Usuário ou Senha incorretos");
             return CustomResponse();
         }
 
