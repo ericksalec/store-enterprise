@@ -31,6 +31,9 @@ namespace SE.WebApp.MVC.Controllers
         {
             var produto = await _catalogoService.ObterPorId(itemProduto.ProdutoId);
 
+            ValidarItemCarrinho(produto, itemProduto.Quantidade);
+            if (!OperacaoValida()) return View("Index", await _carrinhoService.ObterCarrinho());
+
             itemProduto.Nome = produto.Nome;
             itemProduto.Valor = produto.Valor;
             itemProduto.Imagem = produto.Imagem;
@@ -47,7 +50,6 @@ namespace SE.WebApp.MVC.Controllers
         public async Task<IActionResult> AtualizarItemCarrinho(Guid produtoId, int quantidade)
         {
             var produto = await _catalogoService.ObterPorId(produtoId);
-            if (produto == null) AdicionarErroValidacao("Produto inxistente!");
 
             ValidarItemCarrinho(produto, quantidade);
             if (!OperacaoValida()) return View("Index", await _carrinhoService.ObterCarrinho());

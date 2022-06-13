@@ -22,6 +22,8 @@ namespace SE.Carrinho.API.Controllers
             _user = user;
             _context = context;
         }
+
+        [HttpGet("carrinho")]
         public async Task<CarrinhoCliente> ObterCarrinho()
         {
             return await ObterCarrinhoCliente() ?? new CarrinhoCliente();

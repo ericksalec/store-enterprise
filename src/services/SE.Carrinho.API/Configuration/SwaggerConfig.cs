@@ -13,7 +13,7 @@ namespace SE.Carrinho.API.Configuration
             {
                 c.SwaggerDoc("v1", new OpenApiInfo()
                 {
-                    Title = "Store Enterprise Identity API",
+                    Title = "Store Enterprise Carrinho API",
                     Description = "Esta API faz parte do curso ASP.NET Core Enterprise Applications.",
                     Contact = new OpenApiContact() { Name = "Erick Sales", Email = "contato@email.com" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
