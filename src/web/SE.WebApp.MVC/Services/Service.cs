@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using SE.WebApp.MVC.Extensions;
+using SE.WebApp.MVC.Models;
 
 namespace SE.WebApp.MVC.Services
 {
@@ -45,6 +46,11 @@ namespace SE.WebApp.MVC.Services
 
             response.EnsureSuccessStatusCode();
             return true;
+        }
+
+        protected ResponseResult RetornoOk()
+        {
+            return new ResponseResult();
         }
     }
 }
