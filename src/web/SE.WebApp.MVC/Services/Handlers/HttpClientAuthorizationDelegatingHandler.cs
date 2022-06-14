@@ -18,7 +18,7 @@ namespace SE.WebApp.MVC.Services.Handlers
             _user = user;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var autorizationHeader = _user.ObterHttpContext().Request.Headers["Authorization"];
 
@@ -34,7 +34,7 @@ namespace SE.WebApp.MVC.Services.Handlers
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
 
-            return base.SendAsync(request, cancellationToken);
+            return await base.SendAsync(request, cancellationToken);
         }
     }
 }
