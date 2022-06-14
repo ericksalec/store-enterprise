@@ -11,13 +11,4 @@
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\..\building blocks\NE.Core\SE.Core.csproj" />
-		<ProjectReference Include="..\..\building blocks\SE.MessageBus\SE.MessageBus.csproj" />
-		<ProjectReference Include="..\..\building blocks\SE.WebAPI.Core\SE.WebAPI.Core.csproj" />
-		<ProjectReference Include="..\SE.Pedidos.Domain\NE.Pedidos.Domain.csproj" />
-		<ProjectReference Include="..\SE.Pedidos.Infra\SE.Pedidos.Infra.csproj" />
-	</ItemGroup>
-
-
 </Project>
