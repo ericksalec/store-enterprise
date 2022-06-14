@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SE.Core.DomainObjects;
 
-namespace SE.Pedidos.Domain.Vouchers
+namespace SE.Pedidos.Domain
 {
-    internal class Voucher
+    public class Voucher : Entity, IAggregateRoot
     {
     }
 }

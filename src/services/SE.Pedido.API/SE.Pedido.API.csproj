@@ -1,23 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>a2f7fffd-2ddb-497e-881b-9e6a3aceee08</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..\..</DockerfileContext>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UserSecretsId>a2f7fffd-2ddb-497e-881b-9e6a3aceee08</UserSecretsId>
+		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+		<DockerfileContext>..\..\..</DockerfileContext>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.15.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\Commands\" />
-    <Folder Include="Application\Events\" />
-    <Folder Include="Application\DTO\" />
-    <Folder Include="Application\Queries\" />
-    <Folder Include="Controllers\" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\building blocks\NE.Core\SE.Core.csproj" />
+		<ProjectReference Include="..\..\building blocks\SE.MessageBus\SE.MessageBus.csproj" />
+		<ProjectReference Include="..\..\building blocks\SE.WebAPI.Core\SE.WebAPI.Core.csproj" />
+		<ProjectReference Include="..\SE.Pedidos.Domain\NE.Pedidos.Domain.csproj" />
+		<ProjectReference Include="..\SE.Pedidos.Infra\SE.Pedidos.Infra.csproj" />
+	</ItemGroup>
 
 
 </Project>
