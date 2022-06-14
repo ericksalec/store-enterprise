@@ -35,7 +35,6 @@ namespace SE.Carrinho.API
             Configuration = builder.Build();
         }
 
-
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiConfiguration(Configuration);

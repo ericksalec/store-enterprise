@@ -11,9 +11,8 @@ namespace SE.Clientes.API.Configuration
         public static void AddMessageBusConfiguration(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddMessageBus(configuration.GetMessageConnection("MessageBus"))
-            // HostedService => Singleton
-            .AddHostedService<RegistroClienteIntegrationHandler>(); 
+            services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"))
+                .AddHostedService<RegistroClienteIntegrationHandler>();
         }
     }
 }

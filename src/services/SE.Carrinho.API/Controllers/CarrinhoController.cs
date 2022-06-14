@@ -106,9 +106,13 @@ namespace SE.Carrinho.API.Controllers
             ValidarCarrinho(carrinho);
 
             if (produtoItemExistente)
+            {
                 _context.CarrinhoItens.Update(carrinho.ObterPorProdutoId(item.ProdutoId));
+            }
             else
+            {
                 _context.CarrinhoItens.Add(item);
+            }
 
             _context.CarrinhoCliente.Update(carrinho);
         }
@@ -142,7 +146,6 @@ namespace SE.Carrinho.API.Controllers
             var result = await _context.SaveChangesAsync();
             if (result <= 0) AdicionarErroProcessamento("Não foi possível persistir os dados no banco");
         }
-
         private bool ValidarCarrinho(CarrinhoCliente carrinho)
         {
             if (carrinho.EhValido()) return true;
@@ -150,6 +153,5 @@ namespace SE.Carrinho.API.Controllers
             carrinho.ValidationResult.Errors.ToList().ForEach(e => AdicionarErroProcessamento(e.ErrorMessage));
             return false;
         }
-
     }
 }
