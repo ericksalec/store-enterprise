@@ -35,7 +35,6 @@ namespace SE.Clientes.API.Services
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             SetResponder();
-
             return Task.CompletedTask;
         }
 
@@ -47,10 +46,8 @@ namespace SE.Clientes.API.Services
         private async Task<ResponseMessage> RegistrarCliente(UsuarioRegistradoIntegrationEvent message)
         {
             var clienteCommand = new RegistrarClienteCommand(message.Id, message.Nome, message.Email, message.Cpf);
-
             ValidationResult sucesso;
 
-            // injetando instancia singleton no medietor => scoped
             using (var scope = _serviceProvider.CreateScope())
             {
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediatorHandler>();

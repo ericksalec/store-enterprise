@@ -16,11 +16,11 @@ namespace SE.Clientes.API.Controllers
             _mediatorHandler = mediatorHandler;
         }
 
-        [HttpGet("clientes")]
+        [HttpGet("cliente")]
         public async Task<IActionResult> Index()
         {
             var resultado = await _mediatorHandler.EnviarComando(
-                new RegistrarClienteCommand(Guid.NewGuid(), "Teste", "teste@email.com", "30314299076"));
+                new RegistrarClienteCommand(Guid.NewGuid(), "Teste2", "teste2@email.com", "44313480005"));
 
             return CustomResponse(resultado);
         }

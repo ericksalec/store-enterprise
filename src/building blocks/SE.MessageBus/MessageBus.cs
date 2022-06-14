@@ -31,29 +31,25 @@ namespace SE.MessageBus
             _bus.Publish(message);
         }
 
-        public async Task PublishAsync<T>(T message) 
-            where T : IntegrationEvent
+        public async Task PublishAsync<T>(T message) where T : IntegrationEvent
         {
             TryConnect();
             await _bus.PublishAsync(message);
         }
 
-        public void Subscribe<T>(string subscriptionId, Action<T> onMessage)
-            where T : class
+        public void Subscribe<T>(string subscriptionId, Action<T> onMessage) where T : class
         {
             TryConnect();
             _bus.Subscribe(subscriptionId, onMessage);
         }
 
-        public void SubscribeAsync<T>(string subscriptionId, Func<T, Task> onMessage) 
-            where T : class
+        public void SubscribeAsync<T>(string subscriptionId, Func<T, Task> onMessage) where T : class
         {
             TryConnect();
             _bus.SubscribeAsync(subscriptionId, onMessage);
         }
 
-        public TResponse Request<TRequest, TResponse>(TRequest request) 
-            where TRequest : IntegrationEvent
+        public TResponse Request<TRequest, TResponse>(TRequest request) where TRequest : IntegrationEvent
             where TResponse : ResponseMessage
         {
             TryConnect();
@@ -61,24 +57,21 @@ namespace SE.MessageBus
         }
 
         public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
-            where TRequest : IntegrationEvent 
-            where TResponse : ResponseMessage
+            where TRequest : IntegrationEvent where TResponse : ResponseMessage
         {
             TryConnect();
             return await _bus.RequestAsync<TRequest, TResponse>(request);
         }
 
         public IDisposable Respond<TRequest, TResponse>(Func<TRequest, TResponse> responder)
-            where TRequest : IntegrationEvent
-            where TResponse : ResponseMessage
+            where TRequest : IntegrationEvent where TResponse : ResponseMessage
         {
             TryConnect();
             return _bus.Respond(responder);
         }
 
         public IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
-            where TRequest : IntegrationEvent
-            where TResponse : ResponseMessage
+            where TRequest : IntegrationEvent where TResponse : ResponseMessage
         {
             TryConnect();
             return _bus.RespondAsync(responder);
