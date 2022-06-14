@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using SE.Pedidos.Infra.Data;
 using SE.WebAPI.Core.Identidade;
 
-namespace SE.Pedido.API.Configuration
+namespace SE.Pedidos.API.Configuration
 {
     public static class ApiConfig
     {

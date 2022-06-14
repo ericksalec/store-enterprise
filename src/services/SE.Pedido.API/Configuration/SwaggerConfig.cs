@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace SE.Pedido.API.Configuration
+namespace SE.Pedidos.API.Configuration
 {
     public static class SwaggerConfig
     {

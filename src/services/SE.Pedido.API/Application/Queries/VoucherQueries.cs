@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using SE.Pedido.API.Application.DTO;
+using SE.Pedidos.API.Application.DTO;
 using SE.Pedidos.Domain;
 
-namespace SE.Pedido.API.Application.Queries
+namespace SE.Pedidos.API.Application.Queries
 {
     public interface IVoucherQueries
     {

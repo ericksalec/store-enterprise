@@ -11,10 +11,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
-using SE.Pedido.API.Configuration;
+using SE.Pedidos.API.Configuration;
 using SE.WebAPI.Core.Identidade;
 
-namespace SE.Pedido.API
+namespace SE.Pedidos.API
 {
     public class Startup
     {

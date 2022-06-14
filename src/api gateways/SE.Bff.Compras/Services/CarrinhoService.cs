@@ -6,8 +6,6 @@ using SE.Bff.Compras.Extensions;
 using SE.Bff.Compras.Models;
 using SE.Core.Communication;
 
-//using SE.Core.Communication;
-
 namespace SE.Bff.Compras.Services
 {
     public interface ICarrinhoService

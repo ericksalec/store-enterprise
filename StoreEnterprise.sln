@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Identidade.API", "src\se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pagamento.API", "src\services\SE.Pagamento.API\SE.Pagamento.API.csproj", "{B77FA1B7-B3FF-4540-871D-8ADAC64626A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pedido.API", "src\services\SE.Pedido.API\SE.Pedido.API.csproj", "{9D3AD839-B2F9-4C7D-8FF4-B04984D33AD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pedidos.API", "src\services\SE.Pedido.API\SE.Pedidos.API.csproj", "{9D3AD839-B2F9-4C7D-8FF4-B04984D33AD9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.WebApp.MVC", "src\web\SE.WebApp.MVC\SE.WebApp.MVC.csproj", "{1CC23B00-D182-4E2E-A2B0-492AB67E9457}"
 EndProject
@@ -57,9 +57,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compras", "Compras", "{24B4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Bff.Compras", "src\api gateways\SE.Bff.Compras\SE.Bff.Compras.csproj", "{EAC3F9EE-A266-4529-8381-F877E186B3E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SE.Pedidos.Domain", "src\services\SE.Pedidos.Domain\SE.Pedidos.Domain.csproj", "{5DB49F1D-CE36-4A54-B004-F02222AADC87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pedidos.Domain", "src\services\SE.Pedidos.Domain\SE.Pedidos.Domain.csproj", "{5DB49F1D-CE36-4A54-B004-F02222AADC87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SE.Pedidos.Infra", "src\services\SE.Pedidos.Infra\SE.Pedidos.Infra.csproj", "{2F39E594-F306-44C5-B962-4A7FA37B2B95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pedidos.Infra", "src\services\SE.Pedidos.Infra\SE.Pedidos.Infra.csproj", "{2F39E594-F306-44C5-B962-4A7FA37B2B95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

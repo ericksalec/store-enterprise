@@ -1,4 +1,4 @@
-﻿namespace SE.Pedido.API.Application.DTO
+﻿namespace SE.Pedidos.API.Application.DTO
 {
     public class VoucherDTO
     {
