@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using SE.Core.Communication;
 using SE.WebApp.MVC.Extensions;
 using SE.WebApp.MVC.Models;
 

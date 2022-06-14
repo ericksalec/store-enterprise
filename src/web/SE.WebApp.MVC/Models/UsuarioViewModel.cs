@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using SE.Core.Communication;
 using SE.WebApp.MVC.Extensions;
 
 namespace SE.WebApp.MVC.Models

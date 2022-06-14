@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using SE.Core.Communication;
 using SE.WebApp.MVC.Extensions;
 using SE.WebApp.MVC.Models;
 
