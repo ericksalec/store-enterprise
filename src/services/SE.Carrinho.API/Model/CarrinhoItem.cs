@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentValidation;
+using Newtonsoft.Json;
 
 namespace SE.Carrinho.API.Model
 {
@@ -18,6 +19,7 @@ namespace SE.Carrinho.API.Model
         public string Imagem { get; set; }
         public Guid CarrinhoId { get; set; }
 
+        [JsonIgnore]
         public CarrinhoCliente CarrinhoCliente { get; set; }
 
         internal void AssociarCarrinho(Guid carrinhoId)

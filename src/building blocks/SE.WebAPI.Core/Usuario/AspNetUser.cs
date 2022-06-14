@@ -16,6 +16,7 @@ namespace SE.WebAPI.Core.Usuario
         }
 
         public string Name => _accessor.HttpContext.User.Identity.Name;
+
         public Guid ObterUserId()
         {
             return EstaAutenticado() ? Guid.Parse(_accessor.HttpContext.User.GetUserId()) : Guid.Empty;
@@ -23,12 +24,12 @@ namespace SE.WebAPI.Core.Usuario
 
         public string ObterUserEmail()
         {
-            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserEmail() : string.Empty;
+            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserEmail() : "";
         }
 
         public string ObterUserToken()
         {
-            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken() : string.Empty;
+            return EstaAutenticado() ? _accessor.HttpContext.User.GetUserToken() : "";
         }
 
         public bool EstaAutenticado()
