@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using SE.Core.DomainObjects;
 
@@ -56,39 +57,39 @@ namespace SE.Pedidos.Domain.Pedidos
             Endereco = endereco;
         }
 
-        //public void CalcularValorPedido()
-        //{
-        //    ValorTotal = PedidoItems.Sum(p => p.CalcularValor());
-        //    CalcularValorTotalDesconto();
-        //}
+        public void CalcularValorPedido()
+        {
+            ValorTotal = PedidoItems.Sum(p => p.CalcularValor());
+            CalcularValorTotalDesconto();
+        }
 
-        //public void CalcularValorTotalDesconto()
-        //{
-        //    if (!VoucherUtilizado) return;
+        public void CalcularValorTotalDesconto()
+        {
+            if (!VoucherUtilizado) return;
 
-        //    decimal desconto = 0;
-        //    var valor = ValorTotal;
+            decimal desconto = 0;
+            var valor = ValorTotal;
 
-        //    if (Voucher.TipoDesconto == TipoDescontoVoucher.Porcentagem)
-        //    {
-        //        if (Voucher.Percentual.HasValue)
-        //        {
-        //            desconto = (valor * Voucher.Percentual.Value) / 100;
-        //            valor -= desconto;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        if (Voucher.ValorDesconto.HasValue)
-        //        {
-        //            desconto = Voucher.ValorDesconto.Value;
-        //            valor -= desconto;
-        //        }
-        //    }
+            if (Voucher.TipoDesconto == TipoDescontoVoucher.Porcentagem)
+            {
+                if (Voucher.Percentual.HasValue)
+                {
+                    desconto = (valor * Voucher.Percentual.Value) / 100;
+                    valor -= desconto;
+                }
+            }
+            else
+            {
+                if (Voucher.ValorDesconto.HasValue)
+                {
+                    desconto = Voucher.ValorDesconto.Value;
+                    valor -= desconto;
+                }
+            }
 
-        //    ValorTotal = valor < 0 ? 0 : valor;
-        //    Desconto = desconto;
-        //}
+            ValorTotal = valor < 0 ? 0 : valor;
+            Desconto = desconto;
+        }
     }
 
 }

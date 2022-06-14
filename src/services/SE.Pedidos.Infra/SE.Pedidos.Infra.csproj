@@ -21,6 +21,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\building blocks\SE.Core\SE.Core.csproj" />
+		<ProjectReference Include="..\SE.Cliente.API\SE.Clientes.API.csproj" />
 		<ProjectReference Include="..\SE.Pedidos.Domain\SE.Pedidos.Domain.csproj" />
 	</ItemGroup>
 

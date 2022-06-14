@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
+using SE.Clientes.API.Data;
 using SE.Core.Data;
 using SE.Core.DomainObjects;
 using SE.Core.Mediator;
@@ -23,8 +24,8 @@ namespace SE.Pedidos.Infra.Data
         }
 
 
-        //public DbSet<Pedido> Pedidos { get; set; }
-        //public DbSet<PedidoItem> PedidoItems { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoItem> PedidoItems { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -63,7 +64,7 @@ namespace SE.Pedidos.Infra.Data
             }
 
             var sucesso = await base.SaveChangesAsync() > 0;
-            //if (sucesso) await _mediatorHandler.PublicarEventos(this);
+            if (sucesso) await _mediatorHandler.PublicarEventos(this);
 
             return sucesso;
         }
