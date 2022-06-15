@@ -9,6 +9,7 @@ using SE.Pedidos.API.Application.Events;
 using SE.Pedidos.Domain;
 using SE.Pedidos.Domain.Pedidos;
 using SE.Pedidos.Domain.Specs;
+using SE.Pedidos.Domain.Vouchers.Specs;
 
 namespace SE.Pedidos.API.Application.Commands
 {
