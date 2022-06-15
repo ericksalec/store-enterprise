@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SE.Carrinho.API.Data;
 
 namespace SE.Carrinho.API.Migrations
 {
     [DbContext(typeof(CarrinhoContext))]
-    partial class CarrinhoContextModelSnapshot : ModelSnapshot
+    [Migration("20220615210515_CarrinhoCacade")]
+    partial class CarrinhoCacade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
