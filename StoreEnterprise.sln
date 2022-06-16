@@ -61,6 +61,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pedidos.Domain", "src\se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pedidos.Infra", "src\services\SE.Pedidos.Infra\SE.Pedidos.Infra.csproj", "{2F39E594-F306-44C5-B962-4A7FA37B2B95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SE.DevPag", "src\services\DevPag\SE.DevPag.csproj", "{8F4FDC00-5269-49C2-A036-13009804FB52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +121,10 @@ Global
 		{2F39E594-F306-44C5-B962-4A7FA37B2B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F39E594-F306-44C5-B962-4A7FA37B2B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F39E594-F306-44C5-B962-4A7FA37B2B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F4FDC00-5269-49C2-A036-13009804FB52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F4FDC00-5269-49C2-A036-13009804FB52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F4FDC00-5269-49C2-A036-13009804FB52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F4FDC00-5269-49C2-A036-13009804FB52}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -152,6 +158,7 @@ Global
 		{EAC3F9EE-A266-4529-8381-F877E186B3E8} = {24B48E29-40C5-4879-AE92-9B2FDF65DA08}
 		{5DB49F1D-CE36-4A54-B004-F02222AADC87} = {5539154B-BACC-4252-AB26-9CEB6F1FEEC7}
 		{2F39E594-F306-44C5-B962-4A7FA37B2B95} = {5539154B-BACC-4252-AB26-9CEB6F1FEEC7}
+		{8F4FDC00-5269-49C2-A036-13009804FB52} = {BDFD4131-3507-4455-84B3-39232AF5D4EE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4AE4560-751B-445D-B221-D9E71FEE0E57}
