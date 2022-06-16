@@ -1,23 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using SE.Core.Communication;
-using SE.WebApp.MVC.Models;
 using SE.WebApp.MVC.Extensions;
-
+using SE.WebApp.MVC.Models;
 
 namespace SE.WebApp.MVC.Services
 {
     public interface IComprasBffService
     {
+        // Carrinho
         Task<CarrinhoViewModel> ObterCarrinho();
         Task<int> ObterQuantidadeCarrinho();
         Task<ResponseResult> AdicionarItemCarrinho(ItemCarrinhoViewModel carrinho);
         Task<ResponseResult> AtualizarItemCarrinho(Guid produtoId, ItemCarrinhoViewModel carrinho);
         Task<ResponseResult> RemoverItemCarrinho(Guid produtoId);
         Task<ResponseResult> AplicarVoucherCarrinho(string voucher);
+
+        // Pedido
+        PedidoTransacaoViewModel MapearParaPedido(CarrinhoViewModel carrinho, EnderecoViewModel endereco);
     }
+
     public class ComprasBffService : Service, IComprasBffService
     {
         private readonly HttpClient _httpClient;
@@ -86,6 +91,37 @@ namespace SE.WebApp.MVC.Services
         }
 
         #endregion
-    }
 
+        #region Pedido
+
+        public PedidoTransacaoViewModel MapearParaPedido(CarrinhoViewModel carrinho, EnderecoViewModel endereco)
+        {
+            var pedido = new PedidoTransacaoViewModel
+            {
+                ValorTotal = carrinho.ValorTotal,
+                Itens = carrinho.Itens,
+                Desconto = carrinho.Desconto,
+                VoucherUtilizado = carrinho.VoucherUtilizado,
+                VoucherCodigo = carrinho.Voucher?.Codigo
+            };
+
+            if (endereco != null)
+            {
+                pedido.Endereco = new EnderecoViewModel
+                {
+                    Logradouro = endereco.Logradouro,
+                    Numero = endereco.Numero,
+                    Bairro = endereco.Bairro,
+                    Cep = endereco.Cep,
+                    Complemento = endereco.Complemento,
+                    Cidade = endereco.Cidade,
+                    Estado = endereco.Estado
+                };
+            }
+
+            return pedido;
+        }
+
+        #endregion
+    }
 }
