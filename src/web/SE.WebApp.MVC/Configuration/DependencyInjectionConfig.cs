@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Polly;
-using Polly.Extensions.Http;
-using Polly.Retry;
-using SE.WebAPI.Core.Usuario;
 using SE.WebApp.MVC.Extensions;
 using SE.WebApp.MVC.Services;
 using SE.WebApp.MVC.Services.Handlers;
+using SE.WebAPI.Core.Usuario;
+using Polly;
+using Polly.Extensions.Http;
+using Polly.Retry;
 
 namespace SE.WebApp.MVC.Configuration
 {
@@ -43,7 +43,14 @@ namespace SE.WebApp.MVC.Configuration
                 .AddTransientHttpErrorPolicy(
                     p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
 
+            services.AddHttpClient<IClienteService, ClienteService>()
+                .AddHttpMessageHandler<HttpClientAuthorizationDelegatingHandler>()
+                .AddPolicyHandler(PollyExtensions.EsperarTentar())
+                .AddTransientHttpErrorPolicy(
+                    p => p.CircuitBreakerAsync(5, TimeSpan.FromSeconds(30)));
+
             #endregion
+
 
             #region Refit
 
