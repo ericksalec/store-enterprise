@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SE.Core.Data;
@@ -11,5 +11,8 @@ namespace SE.Clientes.API.Models
 
         Task<IEnumerable<Cliente>> ObterTodos();
         Task<Cliente> ObterPorCpf(string cpf);
+
+        void AdicionarEndereco(Endereco endereco);
+        Task<Endereco> ObterEnderecoPorId(Guid id);
     }
 }
