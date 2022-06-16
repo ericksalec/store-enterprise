@@ -1,15 +1,15 @@
-﻿using System;
+﻿using SE.Catalogo.API.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SE.Catalogo.API.Models;
 using SE.Core.Data;
 
 namespace SE.Catalogo.API.Data.Repository
 {
     public class ProdutoRepository : IProdutoRepository
     {
-
         private readonly CatalogoContext _context;
 
         public ProdutoRepository(CatalogoContext context)
@@ -19,9 +19,27 @@ namespace SE.Catalogo.API.Data.Repository
 
         public IUnitOfWork UnitOfWork => _context;
 
+        public async Task<IEnumerable<Produto>> ObterTodos()
+        {
+            return await _context.Produtos.AsNoTracking().ToListAsync();
+        }
+
         public async Task<Produto> ObterPorId(Guid id)
         {
             return await _context.Produtos.FindAsync(id);
+        }
+
+        public async Task<List<Produto>> ObterProdutosPorId(string ids)
+        {
+            var idsGuid = ids.Split(',')
+                .Select(id => (Ok: Guid.TryParse(id, out var x), Value: x));
+
+            if (!idsGuid.All(nid => nid.Ok)) return new List<Produto>();
+
+            var idsValue = idsGuid.Select(id => id.Value);
+
+            return await _context.Produtos.AsNoTracking()
+                .Where(p => idsValue.Contains(p.Id) && p.Ativo).ToListAsync();
         }
 
         public void Adicionar(Produto produto)
@@ -33,10 +51,7 @@ namespace SE.Catalogo.API.Data.Repository
         {
             _context.Produtos.Update(produto);
         }
-        public async Task<IEnumerable<Produto>> ObterTodos()
-        {
-            return await _context.Produtos.AsNoTracking().ToListAsync();
-        }
+
         public void Dispose()
         {
             _context?.Dispose();

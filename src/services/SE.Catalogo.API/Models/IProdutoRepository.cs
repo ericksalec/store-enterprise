@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SE.Core.Data;
@@ -10,6 +9,7 @@ namespace SE.Catalogo.API.Models
     {
         Task<IEnumerable<Produto>> ObterTodos();
         Task<Produto> ObterPorId(Guid id);
+        Task<List<Produto>> ObterProdutosPorId(string ids);
 
         void Adicionar(Produto produto);
         void Atualizar(Produto produto);

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -13,12 +11,14 @@ namespace SE.WebAPI.Core.Controllers
     public abstract class MainController : Controller
     {
         protected ICollection<string> Erros = new List<string>();
+
         protected ActionResult CustomResponse(object result = null)
         {
             if (OperacaoValida())
             {
                 return Ok(result);
             }
+
             return BadRequest(new ValidationProblemDetails(new Dictionary<string, string[]>
             {
                 { "Mensagens", Erros.ToArray() }
@@ -65,15 +65,19 @@ namespace SE.WebAPI.Core.Controllers
             return true;
         }
 
-        protected void AdicionarErroProcessamento(string erro)
-        {
-            Erros.Add(erro);
-        }
-
         protected bool OperacaoValida()
         {
             return !Erros.Any();
         }
 
+        protected void AdicionarErroProcessamento(string erro)
+        {
+            Erros.Add(erro);
+        }
+
+        protected void LimparErrosProcessamento()
+        {
+            Erros.Clear();
+        }
     }
 }

@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SE.Catalogo.API.Models;
 using SE.WebAPI.Core.Controllers;
-using SE.WebAPI.Core.Identidade;
 
 namespace SE.Catalogo.API.Controllers
 {
-    [Authorize]
     public class CatalogoController : MainController
     {
         private readonly IProdutoRepository _produtoRepository;
@@ -19,7 +17,6 @@ namespace SE.Catalogo.API.Controllers
             _produtoRepository = produtoRepository;
         }
 
-        [AllowAnonymous]
         [HttpGet("catalogo/produtos")]
         public async Task<IEnumerable<Produto>> Index()
         {
@@ -32,5 +29,10 @@ namespace SE.Catalogo.API.Controllers
             return await _produtoRepository.ObterPorId(id);
         }
 
+        [HttpGet("catalogo/produtos/lista/{ids}")]
+        public async Task<IEnumerable<Produto>> ObterProdutosPorId(string ids)
+        {
+            return await _produtoRepository.ObterProdutosPorId(ids);
+        }
     }
 }
