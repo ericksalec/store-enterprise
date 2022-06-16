@@ -1,7 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 using MediatR;
+using System.Threading;
+using System.Threading.Tasks;
 using SE.Clientes.API.Application.Events;
 using SE.Clientes.API.Models;
 using SE.Core.Messages;
@@ -9,9 +9,9 @@ using SE.Core.Messages;
 namespace SE.Clientes.API.Application.Commands
 {
     public class ClienteCommandHandler : CommandHandler,
-        IRequestHandler<RegistrarClienteCommand, ValidationResult>
+        IRequestHandler<RegistrarClienteCommand, ValidationResult>,
+        IRequestHandler<AdicionarEnderecoCommand, ValidationResult>
     {
-
         private readonly IClienteRepository _clienteRepository;
 
         public ClienteCommandHandler(IClienteRepository clienteRepository)
@@ -25,20 +25,28 @@ namespace SE.Clientes.API.Application.Commands
 
             var cliente = new Cliente(message.Id, message.Nome, message.Email, message.Cpf);
 
-            // validacoes de negocio
             var clienteExistente = await _clienteRepository.ObterPorCpf(cliente.Cpf.Numero);
 
-            if (clienteExistente != null) 
+            if (clienteExistente != null)
             {
                 AdicionarErro("Este CPF já está em uso.");
                 return ValidationResult;
             }
 
-            // persistir no banco
             _clienteRepository.Adicionar(cliente);
 
-            // lancar um evento cliente ok!
             cliente.AdicionarEvento(new ClienteRegistradoEvent(message.Id, message.Nome, message.Email, message.Cpf));
+
+            return await PersistirDados(_clienteRepository.UnitOfWork);
+        }
+
+        public async Task<ValidationResult> Handle(AdicionarEnderecoCommand message, CancellationToken cancellationToken)
+        {
+            if (!message.EhValido()) return message.ValidationResult;
+
+            var endereco = new Endereco(message.Logradouro, message.Numero, message.Complemento, message.Bairro,
+                                        message.Cep, message.Cidade, message.Estado, message.ClienteId);
+            _clienteRepository.AdicionarEndereco(endereco);
 
             return await PersistirDados(_clienteRepository.UnitOfWork);
         }
