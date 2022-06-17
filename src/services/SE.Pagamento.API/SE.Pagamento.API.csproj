@@ -15,5 +15,12 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\SE.Core\SE.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\SE.MessageBus\SE.MessageBus.csproj" />
+    <ProjectReference Include="..\..\building blocks\SE.WebAPI.Core\SE.WebAPI.Core.csproj" />
+    <ProjectReference Include="..\DevPag\SE.DevPag.csproj" />
+  </ItemGroup>
+
 
 </Project>

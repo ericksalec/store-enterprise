@@ -4,7 +4,9 @@ using System.Text;
 
 namespace SE.DevPag
 {
-    internal class PaymentMethod
+    public enum PaymentMethod
     {
+        CreditCard = 1,
+        Billet
     }
 }
