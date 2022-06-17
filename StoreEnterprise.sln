@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Clientes.API", "src\serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Identidade.API", "src\services\SE.Identidade.API\SE.Identidade.API.csproj", "{DDCDBEED-6BC1-40E8-AABE-84D09E820879}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pagamento.API", "src\services\SE.Pagamento.API\SE.Pagamento.API.csproj", "{B77FA1B7-B3FF-4540-871D-8ADAC64626A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pagamentos.API", "src\services\SE.Pagamento.API\SE.Pagamentos.API.csproj", "{B77FA1B7-B3FF-4540-871D-8ADAC64626A3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SE.Pedidos.API", "src\services\SE.Pedido.API\SE.Pedidos.API.csproj", "{9D3AD839-B2F9-4C7D-8FF4-B04984D33AD9}"
 EndProject
