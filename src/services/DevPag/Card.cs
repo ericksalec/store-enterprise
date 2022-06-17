@@ -6,12 +6,12 @@ namespace SE.DevPag
 {
     public class CardHash
     {
-        public CardHash(NerdsPagService nerdsPagService)
+        public CardHash(DevPagService devPagService)
         {
-            NerdsPagService = nerdsPagService;
+            _devPagService = devPagService;
         }
 
-        private readonly NerdsPagService NerdsPagService;
+        private readonly DevPagService _devPagService;
 
         public string CardHolderName { get; set; }
         public string CardNumber { get; set; }
@@ -22,8 +22,8 @@ namespace SE.DevPag
         {
             using var aesAlg = Aes.Create();
 
-            aesAlg.IV = Encoding.Default.GetBytes(NerdsPagService.EncryptionKey);
-            aesAlg.Key = Encoding.Default.GetBytes(NerdsPagService.ApiKey);
+            aesAlg.IV = Encoding.Default.GetBytes(_devPagService.EncryptionKey);
+            aesAlg.Key = Encoding.Default.GetBytes(_devPagService.ApiKey);
 
             var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 

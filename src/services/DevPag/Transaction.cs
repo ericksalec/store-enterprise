@@ -6,14 +6,14 @@ namespace SE.DevPag
 {
     public class Transaction
     {
-        public Transaction(NerdsPagService nerdsPagService)
+        public Transaction(DevPagService devPagService)
         {
-            NerdsPagService = nerdsPagService;
+            DevPagService = devPagService;
         }
 
         protected Transaction() { }
 
-        private readonly NerdsPagService NerdsPagService;
+        private readonly DevPagService DevPagService;
 
         protected string Endpoint { get; set; }
 

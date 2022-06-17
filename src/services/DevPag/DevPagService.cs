@@ -4,12 +4,12 @@ using System.Text;
 
 namespace SE.DevPag
 {
-    public class NerdsPagService
+    public class DevPagService
     {
         public readonly string ApiKey;
         public readonly string EncryptionKey;
 
-        public NerdsPagService(string apiKey, string encryptionKey)
+        public DevPagService(string apiKey, string encryptionKey)
         {
             ApiKey = apiKey;
             EncryptionKey = encryptionKey;
