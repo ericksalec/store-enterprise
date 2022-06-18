@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using SE.WebAPI.Core.Usuario;
-using SE.WebApp.MVC.Extensions;
 
 namespace SE.WebApp.MVC.Services.Handlers
 {
@@ -18,13 +16,13 @@ namespace SE.WebApp.MVC.Services.Handlers
             _user = user;
         }
 
-        protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var autorizationHeader = _user.ObterHttpContext().Request.Headers["Authorization"];
+            var authorizationHeader = _user.ObterHttpContext().Request.Headers["Authorization"];
 
-            if (!string.IsNullOrEmpty(autorizationHeader))
+            if (!string.IsNullOrEmpty(authorizationHeader))
             {
-                request.Headers.Add("Authorization", new List<string>(){autorizationHeader});
+                request.Headers.Add("Authorization", new List<string>() { authorizationHeader });
             }
 
             var token = _user.ObterUserToken();
@@ -34,7 +32,7 @@ namespace SE.WebApp.MVC.Services.Handlers
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }
 
-            return await base.SendAsync(request, cancellationToken);
+            return base.SendAsync(request, cancellationToken);
         }
     }
 }

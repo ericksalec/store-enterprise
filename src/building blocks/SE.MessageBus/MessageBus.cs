@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using EasyNetQ;
+using SE.Core.Messages.Integration;
 using Polly;
 using RabbitMQ.Client.Exceptions;
-using SE.Core.Messages.Integration;
 
 namespace SE.MessageBus
 {
@@ -70,11 +68,11 @@ namespace SE.MessageBus
             return _bus.Respond(responder);
         }
 
-        public  IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
+        public IDisposable RespondAsync<TRequest, TResponse>(Func<TRequest, Task<TResponse>> responder)
             where TRequest : IntegrationEvent where TResponse : ResponseMessage
         {
             TryConnect();
-            return  _bus.RespondAsync(responder);
+            return _bus.RespondAsync(responder);
         }
 
         private void TryConnect()

@@ -19,5 +19,8 @@
 		<ProjectReference Include="..\..\building blocks\SE.WebAPI.Core\SE.WebAPI.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<Folder Include="Configuration\" />
+	</ItemGroup>
 
 </Project>

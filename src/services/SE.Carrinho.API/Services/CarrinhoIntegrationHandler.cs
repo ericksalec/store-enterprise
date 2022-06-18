@@ -47,5 +47,4 @@ namespace SE.Carrinho.API.Services
             }
         }
     }
-
 }
