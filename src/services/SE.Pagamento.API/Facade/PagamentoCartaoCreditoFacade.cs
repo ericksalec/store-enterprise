@@ -44,6 +44,26 @@ namespace SE.Pagamentos.API.Facade
             return ParaTransacao(await transacao.AuthorizeCardTransaction());
         }
 
+        public async Task<Transacao> CapturarPagamento(Transacao transacao)
+        {
+            var pagSvc = new DevPagService(_pagamentoConfig.DefaultApiKey,
+                _pagamentoConfig.DefaultEncryptionKey);
+
+            var transaction = ParaTransaction(transacao, pagSvc);
+
+            return ParaTransacao(await transaction.CaptureCardTransaction());
+        }
+
+        public async Task<Transacao> CancelarAutorizacao(Transacao transacao)
+        {
+            var pagSvc = new DevPagService(_pagamentoConfig.DefaultApiKey,
+                _pagamentoConfig.DefaultEncryptionKey);
+
+            var transaction = ParaTransaction(transacao, pagSvc);
+
+            return ParaTransacao(await transaction.CancelAuthorization());
+        }
+
         public static Transacao ParaTransacao(Transaction transaction)
         {
             return new Transacao
