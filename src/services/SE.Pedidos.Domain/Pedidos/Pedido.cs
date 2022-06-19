@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using SE.Core.DomainObjects;
 
 namespace SE.Pedidos.Domain.Pedidos
@@ -43,6 +42,15 @@ namespace SE.Pedidos.Domain.Pedidos
         public void AutorizarPedido()
         {
             PedidoStatus = PedidoStatus.Autorizado;
+        }
+        public void CancelarPedido()
+        {
+            PedidoStatus = PedidoStatus.Cancelado;
+        }
+
+        public void FinalizarPedido()
+        {
+            PedidoStatus = PedidoStatus.Pago;
         }
 
         public void AtribuirVoucher(Voucher voucher)
@@ -91,5 +99,4 @@ namespace SE.Pedidos.Domain.Pedidos
             Desconto = desconto;
         }
     }
-
 }

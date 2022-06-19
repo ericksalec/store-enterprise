@@ -6,7 +6,6 @@ using SE.Core.DomainObjects;
 using SE.Core.Messages.Integration;
 using SE.Pagamentos.API.Facade;
 using SE.Pagamentos.API.Models;
-using SE.Pagamentos.Facade;
 
 
 namespace SE.Pagamentos.API.Services
