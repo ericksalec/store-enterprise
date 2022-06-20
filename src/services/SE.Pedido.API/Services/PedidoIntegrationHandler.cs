@@ -68,6 +68,7 @@ namespace SE.Pedidos.API.Services
                 {
                     throw new DomainException($"Problemas ao finalizar o pedido {message.PedidoId}");
                 }
+
             }
         }
     }
